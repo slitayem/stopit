@@ -81,8 +81,8 @@ class BaseTimeout(object):
             LOG.warning("Code block execution exceeded {0} seconds timeout".format(self.seconds),
                         exc_info=(exc_type, exc_val, exc_tb))
             return self.swallow_exc
-        else:
-            if exc_type is None:
+        elif exc_type is None:
+            if self.state != BaseTimeout.TIMED_OUT:
                 self.state = BaseTimeout.EXECUTED
             self.suppress_interrupt()
         return False
